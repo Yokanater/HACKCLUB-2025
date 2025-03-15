@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import Input from "./ui/Input";
 
 function Directions() {
 
@@ -117,7 +118,28 @@ function Directions() {
 
 	if (!leg) return null;
 	return (
-		<div className="directions" style={{width: "30vw"}}>
+		<div className="directions bg-[#fff] p-[20px]" style={{width: "25vw"}}>
+       <h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
+       <p className="pt-[10px]">Enter destination and source</p>
+       <form className="pt-[-10px]" onSubmit={(e) => {
+         e.preventDefault()
+
+       }}>
+          <Input
+            placeholder="From"
+            className="w-[100%] mt-[10px]"
+          />
+          <Input
+            placeholder="To"
+            className="w-[100%] mt-[10px]"
+          />
+          <div className="w-[100%] flex justify-end">
+          <button type="submit" className="bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]">Go!</button>
+          </div>
+      </form>
+
+      <div className="w-[100%] h-[2px] bg-[#00000020] my-[20px]" />
+
 			<h2>{selected.summary}</h2>
 			<p>
 				{leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}
