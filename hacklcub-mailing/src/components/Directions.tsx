@@ -186,30 +186,87 @@ function Directions() {
         </div>
       </form>
 
-      <div className="w-[100%] h-[2px] bg-[#00000020] my-[20px]" />
-      {selected && leg && (
-        <>
-          <h2>{selected.summary}</h2>
-          <p>
-            {leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}
-          </p>
-          <p>Distance: {leg.distance?.text}</p>
-          <p>Duration: {leg.duration?.text}</p>
+      <div className="w-[100%] h-[2px] bg-[#00000020] mt-[20px] mb-[10px]" />
 
-          <h2>Other Routes</h2>
-          <ul>
-            {routes.map((route, index) => (
-              <li key={route.summary}>
-                <button type="submit" onClick={() => setRouteIndex(index)}>
-                  {route.summary}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
-  );
+	  <div className="mb-[16px] flex justify-between text-[#3B82F6]" style={{
+		fontWeight: '600',
+	  }}><p>Distance: {leg.distance?.text}</p>
+			<p>Duration: {leg.duration?.text}</p></div>
+			<div style={{
+						maxHeight: '300px',
+						overflow: 'auto',
+						overflowX: 'hidden',
+						overflowY: 'auto',
+						paddingRight: '10px',
+						
+					}}>
+						
+					<h2 style={{
+						fontSize: '22px',
+						fontWeight: '800',
+						color: 'black'
+					}}>Directions</h2>
+				<div className="flex justify-between items-center mt-[16px]">
+				<div className="flex gap-[15px] items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#6d6d6d" d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7"/></svg>
+				<div style={{
+					fontSize: '16px',
+					fontWeight: '700',
+				}} className="text-gray-700">{leg.start_address.split(",")[0]}</div>
+				</div>
+				<div style={{
+					fontSize: '16px',
+					fontWeight: '700',
+					color: '#8f8f8f',
+				}}>START</div>
+				</div>
+				
+				<div className="text-gray-300 ml-[11.6px]">•</div>
+				<>
+				{
+				
+				leg.steps.slice(0,4).map(function(item, i){
+					return (<div >
+						<div className="flex justify-between">
+						<div className="flex gap-[10px] items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="#6d6d6d" d="M15.764 4a3 3 0 0 1 2.683 1.658l1.386 2.771q.366-.15.72-.324a1 1 0 0 1 .894 1.79a32 32 0 0 1-.725.312l.961 1.923A3 3 0 0 1 22 13.473V16a3 3 0 0 1-1 2.236V19.5a1.5 1.5 0 0 1-3 0V19H6v.5a1.5 1.5 0 0 1-3 0v-1.264c-.614-.55-1-1.348-1-2.236v-2.528a3 3 0 0 1 .317-1.341l.953-1.908q-.362-.152-.715-.327a1.01 1.01 0 0 1-.45-1.343a1 1 0 0 1 1.342-.448q.355.175.72.324l1.386-2.77A3 3 0 0 1 8.236 4zM7.5 13a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m9 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m-.736-7H8.236a1 1 0 0 0-.832.445l-.062.108l-1.27 2.538C7.62 9.555 9.706 10 12 10c2.142 0 4.101-.388 5.61-.817l.317-.092l-1.269-2.538a1 1 0 0 0-.77-.545L15.765 6Z"/></g></svg>
+						<div key="stuff" className="ml-[5px] text-gray-700" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '180px', height:'25px'}} dangerouslySetInnerHTML={{__html: item.instructions.slice(0,55)}}></div>
+						</div>
+						<div className="ml-auto mt-auto mb-auto text-[#3B82F6]">{item.distance?.text}, {item.duration?.text}</div>
+						</div>
+						
+						{item != leg.steps[leg.steps.length-1] ? (
+							<>
+								<div className="text-gray-300 ml-[11.6px]">•</div>
+									
+								<div className="text-gray-300 ml-[11.6px]">•</div>
+							</>
+						) : <br />}
+						</div>
+				)})
+				}
+				
+				</>
+				<div className="flex justify-between items-center">
+				<div className="flex gap-[15px] items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#6d6d6d" d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7"/></svg>
+				<div style={{
+					fontSize: '16px',
+					fontWeight: '700',
+				}} className="text-gray-700">{leg.end_address.split(",")[0]}</div>
+				</div>
+				<div style={{
+					fontSize: '16px',
+					fontWeight: '700',
+					color: '#8f8f8f',
+				}}>END</div>
+				</div>
+				
+			<br />
+			</div>
+
+		</div>
+	);
 }
 
 export default Directions;
