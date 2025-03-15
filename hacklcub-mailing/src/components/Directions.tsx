@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import Input from "./ui/Input";
 
 function Directions() {
 
@@ -82,7 +83,16 @@ function Directions() {
 	if (!leg) return null;
 
 	return (
-		<div className="directions" style={{width: "30vw"}}>
+		<div className="directions bg-[#fff] p-[20px]" style={{width: "25vw"}}>
+       <h1 className="font-[700]">Hack Club Maps</h1>
+       <p>Enter destination and source</p>
+       <div className="bg-[#f00]">
+          <Input
+            placeholder="Search"
+            className="w-[100%] mt-[20px]"
+          />
+      </div>
+
 			<h2>{selected.summary}</h2>
 			<p>
 				{leg.start_address.split(",")[0]} to {leg.end_address.split(",")[0]}

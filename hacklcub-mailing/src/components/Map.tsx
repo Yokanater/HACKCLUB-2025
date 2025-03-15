@@ -5,7 +5,7 @@ import Directions from "./Directions";
 
 import {
 	APIProvider,
-	// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+	// biome-ignore lint/suspicious/noShadowRestrictedNames: stfu
 	Map,
 } from "@vis.gl/react-google-maps";
 
@@ -15,13 +15,13 @@ const Maps = () => (
 	<APIProvider apiKey={API_KEY}>
 		<div className="flex ">
 			<Directions />
-            <div style={{width: "70vw", height: "100vh"}}>
-                <Map
+            <div style={{width: "75vw", height: "100vh"}}>
+            <Map
                     defaultCenter={{ lat: 43.65, lng: -79.38 }}
                     defaultZoom={9}
                     gestureHandling={"greedy"}
                     fullscreenControl={true}
-                />
+                /> 
             </div>
 		</div>
 	</APIProvider>
