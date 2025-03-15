@@ -167,7 +167,6 @@ function Directions() {
 				{
 				
 				leg.steps.map(function(item, i){
-					console.log('test');
 					return (<div>
 						<div className="flex justify-between">
 						<div className="flex gap-[10px] items-center">
@@ -176,10 +175,15 @@ function Directions() {
 						</div>
 						<div className="ml-auto mt-auto mb-auto text-[#3B82F6]">{item.distance?.text}, {item.duration?.text}</div>
 						</div>
-						<div className="text-gray-300 ml-[11.6px]">•</div>
-						<div className="text-gray-300 ml-[11.6px]">•</div>
-						</div>);
-				  })
+						
+						{item != leg.steps[leg.steps.length-1] ? (
+							<>
+								<div className="text-gray-300 ml-[11.6px]">•</div>
+								<div className="text-gray-300 ml-[11.6px]">•</div>
+							</>
+						) : <br />}
+						</div>
+				)})
 				}
 				
 				</>
