@@ -84,14 +84,26 @@ function Directions() {
 
 	return (
 		<div className="directions bg-[#fff] p-[20px]" style={{width: "25vw"}}>
-       <h1 className="font-[700]">Hack Club Maps</h1>
-       <p>Enter destination and source</p>
-       <div className="bg-[#f00]">
+       <h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
+       <p className="pt-[10px]">Enter destination and source</p>
+       <form className="pt-[-10px]" onSubmit={(e) => {
+         e.preventDefault()
+
+       }}>
           <Input
-            placeholder="Search"
-            className="w-[100%] mt-[20px]"
+            placeholder="From"
+            className="w-[100%] mt-[10px]"
           />
-      </div>
+          <Input
+            placeholder="To"
+            className="w-[100%] mt-[10px]"
+          />
+          <div className="w-[100%] flex justify-end">
+          <button type="submit" className="bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]">Go!</button>
+          </div>
+      </form>
+
+      <div className="w-[100%] h-[2px] bg-[#00000020] my-[20px]" />
 
 			<h2>{selected.summary}</h2>
 			<p>
