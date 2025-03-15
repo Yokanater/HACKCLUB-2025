@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import { useMapsLibrary, Marker } from "@vis.gl/react-google-maps";
 import Input from "./ui/Input";
 import LocationSearchBox from "./LocationSearch";
 
