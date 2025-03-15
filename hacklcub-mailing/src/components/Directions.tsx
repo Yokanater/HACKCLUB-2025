@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useMapsLibrary, Marker } from "@vis.gl/react-google-maps";
-import Input from "./ui/Input";
 import LocationSearchBox from "./LocationSearch";
 
 type SelectValue = {
@@ -51,12 +50,12 @@ function Directions() {
   }, [placesLibrary]);
 
   useEffect(() => {
-    if (!map || landmarks.length > 0) return;
-    if (!location) return;
+    if (!map) return;
 
     placesService?.nearbySearch(
       {
-        location: location,
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        location: location!,
         radius: 5000,
         type: "restaurant",
       },
@@ -110,18 +109,17 @@ function Directions() {
 
   useEffect(() => {
     if (!location) return;
-    if (!toValue) return;
 
     setTimeout(() => {
       if (!directionsService || !directionsRenderer) return;
-      if (!toValue) return;
+      // if (!toValue) return;
 
       console.log(landmarks, "lolo");
       directionsService
         .route({
           origin: location,
           waypoints: landmarks.length === 0 ? [] : landmarks,
-          destination: toValue.label,
+          destination: toValue?.label || "Ambience Mall Gurugram",
           travelMode: google.maps.TravelMode.DRIVING,
           provideRouteAlternatives: false,
         })
@@ -140,7 +138,7 @@ function Directions() {
     directionsRenderer.setRouteIndex(routeIndex);
   }, [routeIndex, directionsRenderer]);
 
-  // if (!leg) return null;
+  if (!leg) return null;
   return (
     <div className="directions bg-[#fff] p-[20px]" style={{ width: "25vw" }}>
       <h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
