@@ -4,8 +4,18 @@ import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useMapsLibrary, Marker } from "@vis.gl/react-google-maps";
 import Input from "./ui/Input";
+import LocationSearchBox from "./LocationSearch";
+
+type SelectValue = {
+  label: string;
+  value: string;
+}
 
 function Directions() {
+
+  const [fromValue, setFromValue] = useState<SelectValue | null>(null);
+  const [toValue, setToValue] = useState<SelectValue | null>(null);
+
 	const [location, setLocation] = useState({
 		lat: 28.504218886439443,
 		lng: 77.09561933574918,
@@ -126,28 +136,29 @@ function Directions() {
 
 	if (!leg) return null;
 	return (
-		<div className="directions bg-[#fff] p-[20px]" style={{ width: "25vw" }}>
-			<h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
-			<p className="pt-[10px]">Enter destination and source</p>
-			<form
-				className="pt-[-10px]"
-				onSubmit={(e) => {
-					e.preventDefault();
-				}}
-			>
-				<Input placeholder="From" className="w-[100%] mt-[10px]" />
-				<Input placeholder="To" className="w-[100%] mt-[10px]" />
-				<div className="w-[100%] flex justify-end">
-					<button
-						type="submit"
-						className="bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]"
-					>
-						Go!
-					</button>
-				</div>
-			</form>
+		<div className="directions bg-[#fff] p-[20px]" style={{width: "25vw"}}>
+       <h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
+       <p className="pt-[10px]">Enter destination and source</p>
+       <form className="pt-[-10px]" onSubmit={(e) => {
+         e.preventDefault()
+         if(!fromValue) return
 
-			<div className="w-[100%] h-[2px] bg-[#00000020] my-[20px]" />
+         const fromString = fromValue.value;
+         const parts = fromString.split(',')
+
+         setLocation({
+           lat: Number.parseFloat(parts[0]),
+           lng: Number.parseFloat(parts[1])
+         })
+       }}>
+       <LocationSearchBox value={fromValue} placeholder="From" onChange={setFromValue} />
+       <LocationSearchBox value={toValue} placeholder="To" onChange={setToValue} />
+          <div className="w-[100%] flex justify-end">
+          <button type="submit" className="cursor-pointer bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]">Go!</button>
+          </div>
+      </form>
+
+      <div className="w-[100%] h-[2px] bg-[#00000020] my-[20px]" />
 
 			<h2>{selected.summary}</h2>
 			<p>
