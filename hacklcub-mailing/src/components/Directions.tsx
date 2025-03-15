@@ -58,7 +58,7 @@ function Directions() {
 
 		
 	}, [map, placesLibrary, placesService]);
-
+	console.log(landmarks);
 
 	// Initialize directions service and renderer
 	useEffect(() => {
