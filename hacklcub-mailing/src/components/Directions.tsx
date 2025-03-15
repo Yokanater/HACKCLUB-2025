@@ -4,8 +4,17 @@ import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import Input from "./ui/Input";
+import LocationSearchBox from "./LocationSearch";
+
+type SelectValue = {
+  label: string;
+  value: string;
+}
 
 function Directions() {
+
+  const [fromValue, setFromValue] = useState<SelectValue | null>(null);
+  const [toValue, setToValue] = useState<SelectValue | null>(null);
 
 	const [location, setLocation] = useState({
 		lat: 28.504218886439443,
@@ -123,18 +132,20 @@ function Directions() {
        <p className="pt-[10px]">Enter destination and source</p>
        <form className="pt-[-10px]" onSubmit={(e) => {
          e.preventDefault()
+         if(!fromValue) return
 
+         const fromString = fromValue.value;
+         const parts = fromString.split(',')
+
+         setLocation({
+           lat: Number.parseFloat(parts[0]),
+           lng: Number.parseFloat(parts[1])
+         })
        }}>
-          <Input
-            placeholder="From"
-            className="w-[100%] mt-[10px]"
-          />
-          <Input
-            placeholder="To"
-            className="w-[100%] mt-[10px]"
-          />
+       <LocationSearchBox value={fromValue} placeholder="From" onChange={setFromValue} />
+       <LocationSearchBox value={toValue} placeholder="To" onChange={setToValue} />
           <div className="w-[100%] flex justify-end">
-          <button type="submit" className="bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]">Go!</button>
+          <button type="submit" className="cursor-pointer bg-[#3B82F6] px-[40px] h-[50px] mt-[10px] outline-none border-none rounded-[10px] text-[#fff]">Go!</button>
           </div>
       </form>
 

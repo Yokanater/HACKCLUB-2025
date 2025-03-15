@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.4.0",
     "@vis.gl/react-google-maps": "^1.5.2",
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-mapbox-gl": "^5.1.1"
+    "react-mapbox-gl": "^5.1.1",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "typescript": "^5",
