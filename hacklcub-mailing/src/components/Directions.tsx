@@ -11,8 +11,14 @@ type SelectValue = {
 };
 
 function Directions() {
-  const [fromValue, setFromValue] = useState<SelectValue | null>(null);
-  const [toValue, setToValue] = useState<SelectValue | null>(null);
+  const [fromValue, setFromValue] = useState<SelectValue | null>({
+    label: "Ambience Mall, Gurugram",
+    value: `${28.504218886439443}, ${77.09561933574918}`,
+  });
+  const [toValue, setToValue] = useState<SelectValue | null>({
+    label: "Rashtrapati Bhavan, New Delhi",
+    value: `${28.6143}, ${77.1994}`,
+  });
 
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     {
@@ -23,7 +29,10 @@ function Directions() {
   const [destination, setDestination] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
+  } | null>({
+    lat: 28.6143,
+    lng: 77.1994,
+  });
 
   const routesLibrary = useMapsLibrary("routes");
   const [directionsService, setDirectionsService] =
@@ -142,8 +151,10 @@ function Directions() {
   if (!leg) return null;
   return (
     <div className="directions bg-[#fff] p-[20px]" style={{ width: "25vw" }}>
-      <h1 className="font-[700] text-[30px]">Hack Club Maps</h1>
-      <p className="pt-[10px] mb-[6px]">Enter destination and source</p>
+      <h1 className="font-[700] text-[30px]">Wrong Turn</h1>
+      <p className="pt-[10px] mb-[6px]">
+        Enter destination and source to take the scenic route
+      </p>
       <form
         className="pt-[-10px]"
         onSubmit={(e) => {
@@ -195,8 +206,8 @@ function Directions() {
           fontWeight: "600",
         }}
       >
-        <p>Distance: {leg.distance?.text}</p>
-        <p>Duration: {leg.duration?.text}</p>
+        <p>Distance: {leg.distance?.value * 10} km</p>
+        <p>Duration: {leg.duration?.value * 10} mins</p>
       </div>
       <div
         style={{
