@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Directions from "./Directions";
 
-let landmarks_ =[]
+let landmarks_ = []
 import {
 	APIProvider,
 	// biome-ignore lint/suspicious/noShadowRestrictedNames: stfu
@@ -38,43 +38,31 @@ function Landmarks() {
 	const placesLibrary = useMapsLibrary('places');
 	const [landmarks, setLandmarks] = useState<google.maps.places.PlaceResult[]>([]);
 
-
 	const map = useMap();
+
 	useEffect(() => {
-		if (!map) return;
-		console.log
-		if (landmarks.length>0){
-			landmarks.forEach((landmark) => {
-				landmarks_.push({
-					name: landmark.name,
-					lat: landmark.geometry?.location?.lat(),
-					lng: landmark.geometry?.location?.lng(),
-				})
-			})
-			return
-		}
-		
+		if (!map || landmarks.length>0) return;
 		
 		if (placesLibrary) {
 			setPlacesService(new placesLibrary.PlacesService(map));
 		}
 
-		console.log(placesService?.nearbySearch(
+		placesService?.nearbySearch(
 			{
-				location: { lat: 43.65, lng: -79.38 },
+				location: { lat: 28.504218886439443, lng: 77.09561933574918 },
 				radius: 5000,
 				type: "restaurant",
 			},
-			(results, status) => {console.log(
-				results,
-				status
-			)
-
-			setLandmarks(results || [])
+			(results, status) => {
+			    setLandmarks(results || [])
+                landmarks_ = results || []
 			},
-		));
+		);
+
+
 		
-	}, [map, placesLibrary, placesService, landmarks]);
+	}, [map, placesLibrary, placesService]);
+
 
 	return (
 		<>
