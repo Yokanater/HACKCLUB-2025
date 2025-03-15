@@ -12,7 +12,6 @@ function Directions() {
 	});
 	
 	console.log(location);
-	const map = useMap();
 	const routesLibrary = useMapsLibrary("routes");
 	const [directionsService, setDirectionsService] =
 		useState<google.maps.DirectionsService>();
@@ -22,6 +21,43 @@ function Directions() {
 	const [routeIndex, setRouteIndex] = useState(0);
 	const selected = routes[routeIndex];
 	const leg = selected?.legs[0];
+	const [placesService, setPlacesService] = useState<google.maps.places.PlacesService | null>(null);
+	const placesLibrary = useMapsLibrary('places');
+	const [landmarks, setLandmarks] = useState<google.maps.places.PlaceResult[]>([]);
+
+	const map = useMap();
+
+	useEffect(() => {
+		if (!map || landmarks.length>0) return;
+		
+		if (placesLibrary) {
+			setPlacesService(new placesLibrary.PlacesService(map));
+		}
+
+		placesService?.nearbySearch(
+			{
+				location: { lat: 28.504218886439443, lng: 77.09561933574918 },
+				radius: 5000,
+				type: "restaurant",
+			},
+			(results, status) => {
+				// for each place, get only its lat, and lng and set it in the state
+				let temp:any = [];
+				results?.forEach((place) => {
+					temp.push({
+						lat: place.geometry?.location?.lat(),
+						lng: place.geometry?.location?.lng(),
+					});
+				});
+
+				setLandmarks(() => temp);
+			},
+		);
+
+
+		
+	}, [map, placesLibrary, placesService]);
+
 
 	// Initialize directions service and renderer
 	useEffect(() => {
@@ -80,7 +116,6 @@ function Directions() {
 	}, [routeIndex, directionsRenderer]);
 
 	if (!leg) return null;
-
 	return (
 		<div className="directions" style={{width: "30vw"}}>
 			<h2>{selected.summary}</h2>
@@ -103,5 +138,7 @@ function Directions() {
 		</div>
 	);
 }
+
+
 
 export default Directions;

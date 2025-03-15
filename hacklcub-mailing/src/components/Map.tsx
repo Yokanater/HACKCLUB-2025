@@ -17,7 +17,6 @@ const API_KEY = "AIzaSyBHCiPwbVsm1LreUIYbPMJV8Y-wCO3IAQM";
 const Maps = () => (
 	<APIProvider apiKey={API_KEY}>
 		<div className="flex ">
-            <Landmarks />
 			<Directions />
             <div style={{width: "70vw", height: "100vh"}}>
                 <Map
@@ -32,43 +31,6 @@ const Maps = () => (
 );
 
 
-function Landmarks() {
-	
-	const [placesService, setPlacesService] = useState<google.maps.places.PlacesService | null>(null);
-	const placesLibrary = useMapsLibrary('places');
-	const [landmarks, setLandmarks] = useState<google.maps.places.PlaceResult[]>([]);
-
-	const map = useMap();
-
-	useEffect(() => {
-		if (!map || landmarks.length>0) return;
-		
-		if (placesLibrary) {
-			setPlacesService(new placesLibrary.PlacesService(map));
-		}
-
-		placesService?.nearbySearch(
-			{
-				location: { lat: 28.504218886439443, lng: 77.09561933574918 },
-				radius: 5000,
-				type: "restaurant",
-			},
-			(results, status) => {
-			    setLandmarks(results || [])
-                landmarks_ = results || []
-			},
-		);
-
-
-		
-	}, [map, placesLibrary, placesService]);
-
-
-	return (
-		<>
-		</>
-	);
-}
 
 
 export default Maps;
