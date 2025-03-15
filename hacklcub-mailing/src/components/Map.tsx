@@ -18,7 +18,7 @@ const Maps = () => (
 	<APIProvider apiKey={API_KEY}>
 		<div className="flex ">
 			<Directions />
-            <div style={{width: "75vw", height: "100vh"}}>
+            <div style={{width: "68vw", height: "100vh"}}>
             <Map
                     defaultCenter={{ lat: 43.65, lng: -79.38 }}
                     defaultZoom={9}
