@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
-import { useMapsLibrary } from "@vis.gl/react-google-maps";
+import { useMapsLibrary, Marker } from "@vis.gl/react-google-maps";
 import Input from "./ui/Input";
 
 function Directions() {
@@ -72,6 +72,7 @@ function Directions() {
 		setDirectionsRenderer(
 			new routesLibrary.DirectionsRenderer({
 				draggable: true,
+                suppressMarkers: true,
 				map,
 			}),
 		);
@@ -108,6 +109,7 @@ function Directions() {
 				provideRouteAlternatives: true,
 			})
 			.then((response) => {
+            
 				directionsRenderer.setDirections(response);
 				setRoutes(response.routes);
 			});
@@ -164,7 +166,9 @@ function Directions() {
 					</li>
 				))}
 			</ul>
-		</div>
+            
+			<Marker position={location} />
+		</div> 
 	);
 }
 
