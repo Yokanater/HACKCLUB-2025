@@ -40,8 +40,6 @@ function Landmarks() {
 
 	const map = useMap();
 
-    if(landmarks.length>1) console.log(landmarks)
-
 	useEffect(() => {
 		if (!map || landmarks.length>0) return;
 		
@@ -57,10 +55,14 @@ function Landmarks() {
 			},
 			(results, status) => {
 			    setLandmarks(results || [])
+                landmarks_ = results || []
 			},
 		);
+
+
 		
 	}, [map, placesLibrary, placesService]);
+
 
 	return (
 		<>
