@@ -51,7 +51,7 @@ function Landmarks() {
 
 		placesService?.nearbySearch(
 			{
-				location: { lat: 43.65, lng: -79.38 },
+				location: { lat: 28.504218886439443, lng: 77.09561933574918 },
 				radius: 5000,
 				type: "restaurant",
 			},
