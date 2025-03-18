@@ -9,7 +9,7 @@ import {
   Map,
 } from "@vis.gl/react-google-maps";
 
-const API_KEY = "AIzaSyBHCiPwbVsm1LreUIYbPMJV8Y-wCO3IAQM";
+const API_KEY = "remove this please";
 
 const Maps = () => (
   <APIProvider apiKey={API_KEY}>
